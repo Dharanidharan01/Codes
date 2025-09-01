@@ -45,3 +45,32 @@ brands.splice(1, 1, "Woodland"); // Replace 1 element at index 1
 // Concatenate arrays
 let newBrands = ["Skechers", "Crocs"];
 let allBrands = brands.concat(newBrands);
+
+
+task 5 
+
+let todoApp = {
+    tasks: [],
+
+    addTask(taskName) {
+        this.tasks.push({ name: taskName, completed: false });
+    },
+
+    removeTask(taskName) {
+        this.tasks = this.tasks.filter(task => task.name !== taskName);
+    },
+
+    showTasks() {
+        this.tasks.forEach(task => {
+            console.log(task.name + " - " + (task.completed ? "Done" : "Pending"));
+        });
+    }
+};
+
+// Example usage:
+todoApp.addTask("Buy shoes");
+todoApp.addTask("Clean store");
+todoApp.showTasks();
+todoApp.removeTask("Clean store");
+todoApp.showTasks();
+
