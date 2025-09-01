@@ -1,0 +1,47 @@
+
+// Add new property
+shoeshop.year = 2025;
+
+// Check if a property exists
+console.log(shoeshop.hasOwnProperty("brand"));
+
+// Loop through all properties
+for (let key in shoeshop) {
+    console.log(key + ": " + shoeshop[key]);
+}
+
+// Merge another object
+let owner = { ownerName: "Ragha" };
+Object.assign(shoeshop, owner);
+
+
+// Create array of brands
+let brands = new Array("Nike", "Adidas", "Puma");
+
+// Access elements
+console.log(brands[0]); // First
+console.log(brands[brands.length - 1]); // Last
+
+// Loop through array
+for (let i = 0; i < brands.length; i++) {
+    console.log(brands[i]);
+}
+
+// Add to end
+brands.push("Reebok");
+
+// Add to beginning
+brands.unshift("Fila");
+
+// Delete last
+brands.pop();
+
+// Delete first
+brands.shift();
+
+// Replace and delete using splice
+brands.splice(1, 1, "Woodland"); // Replace 1 element at index 1
+
+// Concatenate arrays
+let newBrands = ["Skechers", "Crocs"];
+let allBrands = brands.concat(newBrands);
