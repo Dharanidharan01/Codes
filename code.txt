@@ -49,28 +49,32 @@ let allBrands = brands.concat(newBrands);
 
 task 5 
 
-let todoApp = {
-    tasks: [],
 
-    addTask(taskName) {
-        this.tasks.push({ name: taskName, completed: false });
-    },
+let tasks = [];
 
-    removeTask(taskName) {
-        this.tasks = this.tasks.filter(task => task.name !== taskName);
-    },
+function addTask(task) {
+    tasks.push(task);
+}
 
-    showTasks() {
-        this.tasks.forEach(task => {
-            console.log(task.name + " - " + (task.completed ? "Done" : "Pending"));
-        });
+function showTasks() {
+    console.log("To-Do List:");
+    for (let i = 0; i < tasks.length; i++) {
+        console.log((i + 1) + ". " + tasks[i]);
     }
-};
+}
+
+function removeTask(task) {
+    tasks = tasks.filter(t => t !== task);
+}
 
 // Example usage:
-todoApp.addTask("Buy shoes");
-todoApp.addTask("Clean store");
-todoApp.showTasks();
+addTask("Buy shoes");
+addTask("Clean store");
+showTasks();
+removeTask("Clean store");
+showTasks();
+
 todoApp.removeTask("Clean store");
 todoApp.showTasks();
+
 
