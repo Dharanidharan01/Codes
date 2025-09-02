@@ -32,3 +32,29 @@ function findHighestEarner() {
 }
  
 findHighestEarner();
+
+
+
+// Add employee
+function addEmployee(name, base, bonus) {
+  employees.push({ name, base, bonus });
+  updateSalaries();
+}
+
+// Delete employee
+function deleteEmployee(name) {
+  employees = employees.filter(emp => emp.name !== name);
+  updateSalaries();
+}
+
+// Update employee
+function updateEmployee(name, base, bonus) {
+  for (let i = 0; i < employees.length; i++) {
+    if (employees[i].name === name) {
+      employees[i].base = base;
+      employees[i].bonus = bonus;
+    }
+  }
+  updateSalaries();
+}
+
