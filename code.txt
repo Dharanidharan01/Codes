@@ -1,57 +1,87 @@
-class RestaurantBillingSystem {
-  #menu = {};       // Private menu object
-  #order = [];      // Private order list
-  #total = 0;       // Private total amount
+Task1)
 
-  addMenu(itemName, price) {
-    this.#menu[itemName] = price;
-    console.log(`Added ${itemName} - ₹${price.toFixed(2)} to the menu.`);
+class ATM {
+  #balance = 1000; // private data
+
+  checkBalance() {
+    console.log(`Your balance is ₹${this.#balance}`);
   }
 
-  showMenu() {
-    console.log("\n--- Menu ---");
-    for (const [item, price] of Object.entries(this.#menu)) {
-      console.log(`${item}: ₹${price.toFixed(2)}`);
-    }
-    console.log("------------\n");
-  }
-
-  placeOrder(itemName, quantity) {
-    if (this.#menu[itemName]) {
-      const cost = this.#menu[itemName] * quantity;
-      this.#order.push({ itemName, quantity, cost });
-      this.#total += cost;
-      console.log(`Ordered ${quantity} x ${itemName} = ₹${cost.toFixed(2)}`);
+  withdraw(amount) {
+    if (amount <= this.#balance) {
+      this.#balance -= amount;
+      console.log(`Withdrawn ₹${amount}. New balance: ₹${this.#balance}`);
     } else {
-      console.log(`Sorry, ${itemName} is not on the menu.`);
+      console.log("Insufficient balance.");
     }
-  }
-
-  applyDiscount(percentage) {
-    const discount = this.#total * (percentage / 100);
-    this.#total -= discount;
-    console.log(`Discount of ${percentage}% applied. You saved ₹${discount.toFixed(2)}!`);
-  }
-
-  generateBill() {
-    console.log("\n--- Final Bill ---");
-    this.#order.forEach(({ itemName, quantity, cost }) => {
-      console.log(`${itemName} x ${quantity} = ₹${cost.toFixed(2)}`);
-    });
-    console.log(`Total: ₹${this.#total.toFixed(2)}`);
-    console.log("------------------\n");
   }
 }
 
-// Example usage
-const restaurant = new RestaurantBillingSystem();
-restaurant.addMenu("Dosa", 50);
-restaurant.addMenu("Idli", 30);
-restaurant.addMenu("Vada", 20);
+const userATM = new ATM();
+userATM.checkBalance();
+userATM.withdraw(500);
 
-restaurant.showMenu();
+Task 2)
+class Department {
+  constructor(deptName) {
+    this.deptName = deptName;
+  }
 
-restaurant.placeOrder("Dosa", 2);
-restaurant.placeOrder("Vada", 3);
-restaurant.applyDiscount(10);
-restaurant.generateBill();
+  showDepartment() {
+    console.log(`Department: ${this.deptName}`);
+  }
+}
+
+class Employee extends Department {
+  constructor(name, deptName) {
+    super(deptName); // call parent constructor
+    this.name = name;
+  }
+
+  showEmployee() {
+    console.log(`Employee: ${this.name}`);
+    this.showDepartment(); // inherited method
+  }
+}
+
+const emp = new Employee("Dharanidharan", "IT");
+emp.showEmployee();
+
+
+
+Task 3)
+
+class Shape {
+  calculateArea() {
+    console.log("Area not defined for generic shape.");
+  }
+}
+
+class Circle extends Shape {
+  constructor(radius) {
+    super();
+    this.radius = radius;
+  }
+
+  calculateArea() {
+    console.log(`Circle Area: ${Math.PI * this.radius * this.radius}`);
+  }
+}
+
+class Rectangle extends Shape {
+  constructor(length, width) {
+    super();
+    this.length = length;
+    this.width = width;
+  }
+
+  calculateArea() {
+    console.log(`Rectangle Area: ${this.length * this.width}`);
+  }
+}
+
+const shapes = [new Circle(5), new Rectangle(4, 6)];
+shapes.forEach(shape => shape.calculateArea());
+
+Task 3)
+
