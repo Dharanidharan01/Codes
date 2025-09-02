@@ -1,43 +1,28 @@
-// Sample salary calculation function
-function calcSalary(base, bonus) {
-  return base + bonus;
+
+/ Calculate salary with deduction
+function calcSalary(base, bonus, deduction) {
+  return base + bonus - deduction;
 }
- 
-// Array of employees with base and bonus
+
+// Employee list
 let employees = [
-  { name: "Arul", base: 40000, bonus: 5000 },
-  { name: "Kumar", base: 45000, bonus: 7000 },
-  { name: "Divya", base: 42000, bonus: 10000 },
-  { name: "Ravi", base: 48000, bonus: 3000 }
+  { name: "Arul", base: 40000, bonus: 5000, deduction: 2000 },
+  { name: "Kumar", base: 45000, bonus: 7000, deduction: 1000 },
+  { name: "Divya", base: 42000, bonus: 10000, deduction: 1500 },
+  { name: "Ravi", base: 48000, bonus: 3000, deduction: 500 }
 ];
- 
-// Add calculated salary to each employee
-for (let i = 0; i < employees.length; i++) {
-  employees[i].salary = calcSalary(employees[i].base, employees[i].bonus);
-}
- 
-// Find highest earner
-function findHighestEarner() {
-  let highest = employees[0];
- 
-  for (let i = 1; i < employees.length; i++) {
-    if (employees[i].salary > highest.salary) {
-      highest = employees[i];
-    }
+
+// Update salaries
+function updateSalaries() {
+  for (let i = 0; i < employees.length; i++) {
+    let emp = employees[i];
+    emp.salary = calcSalary(emp.base, emp.bonus, emp.deduction);
   }
- 
-  console.log("💰 Highest Earner:");
-  console.log("Name:", highest.name);
-  console.log("Salary:", highest.salary);
 }
- 
-findHighestEarner();
-
-
 
 // Add employee
-function addEmployee(name, base, bonus) {
-  employees.push({ name, base, bonus });
+function addEmployee(name, base, bonus, deduction) {
+  employees.push({ name, base, bonus, deduction });
   updateSalaries();
 }
 
@@ -48,13 +33,31 @@ function deleteEmployee(name) {
 }
 
 // Update employee
-function updateEmployee(name, base, bonus) {
+function updateEmployee(name, base, bonus, deduction) {
   for (let i = 0; i < employees.length; i++) {
     if (employees[i].name === name) {
       employees[i].base = base;
       employees[i].bonus = bonus;
+      employees[i].deduction = deduction;
     }
   }
   updateSalaries();
 }
 
+// Find highest earner
+function findHighestEarner() {
+  updateSalaries();
+  let highest = employees[0];
+  for (let i = 1; i < employees.length; i++) {
+    if (employees[i].salary > highest.salary) {
+      highest = employees[i];
+    }
+  }
+  console.log("Highest Earner:", highest.name, "Salary:", highest.salary);
+}
+
+// Example usage
+addEmployee("Meena", 46000, 6000, 1000);
+updateEmployee("Divya", 43000, 12000, 2000);
+deleteEmployee("Ravi");
+findHighestEarner();
