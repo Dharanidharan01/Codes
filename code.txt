@@ -1,37 +1,55 @@
-// Class for each menu item
-class MenuItem {
-  constructor(Name, Price, Type) {
-    this.Name = Name;
-    this.Price = Price;
-    this.Type = Type;
-  }
-}
+class RestaurantBillingSystem:
+    def __init__(self):
+        self.__menu = {}  # Encapsulated menu dictionary
+        self.__order = []  # Encapsulated list of ordered items
+        self.__total = 0.0
 
-// Class for the restaurant
-class Restaurant {
-  constructor() {
-    this.menu = [];
-  }
+    def add_menu(self, item_name, price):
+        """Add item to the menu"""
+        self.__menu[item_name] = price
+        print(f"Added {item_name} - ₹{price:.2f} to the menu.")
 
-  // Add a new item to the menu
-  addMenuItem(name, price, type) {
-    const item = new MenuItem(name, price, type);
-    this.menu.push(item);
-  }
+    def show_menu(self):
+        """Display the menu"""
+        print("\n--- Menu ---")
+        for item, price in self.__menu.items():
+            print(f"{item}: ₹{price:.2f}")
+        print("------------\n")
 
-  // Show all menu items
-  showMenu() {
-    console.log("Restaurant Menu:");
-    this.menu.forEach((item, index) => {
-      console.log(`${index + 1}. ${item.Name} - ${item.Price} - (${item.Type})`);
-    });
-  }
-}
+    def place_order(self, item_name, quantity):
+        """Place an order"""
+        if item_name in self.__menu:
+            cost = self.__menu[item_name] * quantity
+            self.__order.append((item_name, quantity, cost))
+            self.__total += cost
+            print(f"Ordered {quantity} x {item_name} = ₹{cost:.2f}")
+        else:
+            print(f"Sorry, {item_name} is not on the menu.")
 
-// Example usage
-const myRestaurant = new Restaurant();
-myRestaurant.addMenuItem("Dosa", 250, "veg");
-myRestaurant.addMenuItem("Chicken", 550, "non-veg");
-myRestaurant.addMenuItem("Idly", 100, "veg");
+    def apply_discount(self, percentage):
+        """Apply discount to the total bill"""
+        discount = self.__total * (percentage / 100)
+        self.__total -= discount
+        print(f"Discount of {percentage}% applied. You saved ₹{discount:.2f}!")
 
-myRestaurant.showMenu();
+    def generate_bill(self):
+        """Generate and display the final bill"""
+        print("\n--- Final Bill ---")
+        for item, qty, cost in self.__order:
+            print(f"{item} x {qty} = ₹{cost:.2f}")
+        print(f"Total: ₹{self.__total:.2f}")
+        print("------------------\n")
+
+
+# Example usage
+restaurant = RestaurantBillingSystem()
+restaurant.add_menu("Dosa", 50)
+restaurant.add_menu("Idli", 30)
+restaurant.add_menu("Vada", 20)
+
+restaurant.show_menu()
+
+restaurant.place_order("Dosa", 2)
+restaurant.place_order("Vada", 3)
+restaurant.apply_discount(10)
+restaurant.generate_bill()
