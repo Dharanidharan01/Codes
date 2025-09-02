@@ -1,80 +1,34 @@
-
-// Add new property
-shoeshop.year = 2025;
-
-// Check if a property exists
-console.log(shoeshop.hasOwnProperty("brand"));
-
-// Loop through all properties
-for (let key in shoeshop) {
-    console.log(key + ": " + shoeshop[key]);
+// Sample salary calculation function
+function calcSalary(base, bonus) {
+  return base + bonus;
 }
-
-// Merge another object
-let owner = { ownerName: "Ragha" };
-Object.assign(shoeshop, owner);
-
-
-// Create array of brands
-let brands = new Array("Nike", "Adidas", "Puma");
-
-// Access elements
-console.log(brands[0]); // First
-console.log(brands[brands.length - 1]); // Last
-
-// Loop through array
-for (let i = 0; i < brands.length; i++) {
-    console.log(brands[i]);
+ 
+// Array of employees with base and bonus
+let employees = [
+  { name: "Arul", base: 40000, bonus: 5000 },
+  { name: "Kumar", base: 45000, bonus: 7000 },
+  { name: "Divya", base: 42000, bonus: 10000 },
+  { name: "Ravi", base: 48000, bonus: 3000 }
+];
+ 
+// Add calculated salary to each employee
+for (let i = 0; i < employees.length; i++) {
+  employees[i].salary = calcSalary(employees[i].base, employees[i].bonus);
 }
-
-// Add to end
-brands.push("Reebok");
-
-// Add to beginning
-brands.unshift("Fila");
-
-// Delete last
-brands.pop();
-
-// Delete first
-brands.shift();
-
-// Replace and delete using splice
-brands.splice(1, 1, "Woodland"); // Replace 1 element at index 1
-
-// Concatenate arrays
-let newBrands = ["Skechers", "Crocs"];
-let allBrands = brands.concat(newBrands);
-
-
-task 5 
-
-
-let tasks = [];
-
-function addTask(task) {
-    tasks.push(task);
-}
-
-function showTasks() {
-    console.log("To-Do List:");
-    for (let i = 0; i < tasks.length; i++) {
-        console.log((i + 1) + ". " + tasks[i]);
+ 
+// Find highest earner
+function findHighestEarner() {
+  let highest = employees[0];
+ 
+  for (let i = 1; i < employees.length; i++) {
+    if (employees[i].salary > highest.salary) {
+      highest = employees[i];
     }
+  }
+ 
+  console.log("💰 Highest Earner:");
+  console.log("Name:", highest.name);
+  console.log("Salary:", highest.salary);
 }
-
-function removeTask(task) {
-    tasks = tasks.filter(t => t !== task);
-}
-
-// Example usage:
-addTask("Buy shoes");
-addTask("Clean store");
-showTasks();
-removeTask("Clean store");
-showTasks();
-
-todoApp.removeTask("Clean store");
-todoApp.showTasks();
-
-
+ 
+findHighestEarner();
