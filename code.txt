@@ -1,55 +1,57 @@
-class RestaurantBillingSystem:
-    def __init__(self):
-        self.__menu = {}  # Encapsulated menu dictionary
-        self.__order = []  # Encapsulated list of ordered items
-        self.__total = 0.0
+class RestaurantBillingSystem {
+  #menu = {};       // Private menu object
+  #order = [];      // Private order list
+  #total = 0;       // Private total amount
 
-    def add_menu(self, item_name, price):
-        """Add item to the menu"""
-        self.__menu[item_name] = price
-        print(f"Added {item_name} - ₹{price:.2f} to the menu.")
+  addMenu(itemName, price) {
+    this.#menu[itemName] = price;
+    console.log(`Added ${itemName} - ₹${price.toFixed(2)} to the menu.`);
+  }
 
-    def show_menu(self):
-        """Display the menu"""
-        print("\n--- Menu ---")
-        for item, price in self.__menu.items():
-            print(f"{item}: ₹{price:.2f}")
-        print("------------\n")
+  showMenu() {
+    console.log("\n--- Menu ---");
+    for (const [item, price] of Object.entries(this.#menu)) {
+      console.log(`${item}: ₹${price.toFixed(2)}`);
+    }
+    console.log("------------\n");
+  }
 
-    def place_order(self, item_name, quantity):
-        """Place an order"""
-        if item_name in self.__menu:
-            cost = self.__menu[item_name] * quantity
-            self.__order.append((item_name, quantity, cost))
-            self.__total += cost
-            print(f"Ordered {quantity} x {item_name} = ₹{cost:.2f}")
-        else:
-            print(f"Sorry, {item_name} is not on the menu.")
+  placeOrder(itemName, quantity) {
+    if (this.#menu[itemName]) {
+      const cost = this.#menu[itemName] * quantity;
+      this.#order.push({ itemName, quantity, cost });
+      this.#total += cost;
+      console.log(`Ordered ${quantity} x ${itemName} = ₹${cost.toFixed(2)}`);
+    } else {
+      console.log(`Sorry, ${itemName} is not on the menu.`);
+    }
+  }
 
-    def apply_discount(self, percentage):
-        """Apply discount to the total bill"""
-        discount = self.__total * (percentage / 100)
-        self.__total -= discount
-        print(f"Discount of {percentage}% applied. You saved ₹{discount:.2f}!")
+  applyDiscount(percentage) {
+    const discount = this.#total * (percentage / 100);
+    this.#total -= discount;
+    console.log(`Discount of ${percentage}% applied. You saved ₹${discount.toFixed(2)}!`);
+  }
 
-    def generate_bill(self):
-        """Generate and display the final bill"""
-        print("\n--- Final Bill ---")
-        for item, qty, cost in self.__order:
-            print(f"{item} x {qty} = ₹{cost:.2f}")
-        print(f"Total: ₹{self.__total:.2f}")
-        print("------------------\n")
+  generateBill() {
+    console.log("\n--- Final Bill ---");
+    this.#order.forEach(({ itemName, quantity, cost }) => {
+      console.log(`${itemName} x ${quantity} = ₹${cost.toFixed(2)}`);
+    });
+    console.log(`Total: ₹${this.#total.toFixed(2)}`);
+    console.log("------------------\n");
+  }
+}
 
+// Example usage
+const restaurant = new RestaurantBillingSystem();
+restaurant.addMenu("Dosa", 50);
+restaurant.addMenu("Idli", 30);
+restaurant.addMenu("Vada", 20);
 
-# Example usage
-restaurant = RestaurantBillingSystem()
-restaurant.add_menu("Dosa", 50)
-restaurant.add_menu("Idli", 30)
-restaurant.add_menu("Vada", 20)
+restaurant.showMenu();
 
-restaurant.show_menu()
-
-restaurant.place_order("Dosa", 2)
-restaurant.place_order("Vada", 3)
-restaurant.apply_discount(10)
-restaurant.generate_bill()
+restaurant.placeOrder("Dosa", 2);
+restaurant.placeOrder("Vada", 3);
+restaurant.applyDiscount(10);
+restaurant.generateBill();
