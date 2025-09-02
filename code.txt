@@ -1,57 +1,16 @@
-class RestaurantBillingSystem {
-  #menu = {};       // Private menu object
-  #order = [];      // Private order list
-  #total = 0;       // Private total amount
 
-  addMenu(itemName, price) {
-    this.#menu[itemName] = price;
-    console.log(`Added ${itemName} - ₹${price.toFixed(2)} to the menu.`);
-  }
+if (itemName in this.#menu) {
+    let price = this.#menu[itemName];
+    let cost = price * quantity;
 
-  showMenu() {
-    console.log("\n--- Menu ---");
-    for (const [item, price] of Object.entries(this.#menu)) {
-      console.log(`${item}: ₹${price.toFixed(2)}`);
-    }
-    console.log("------------\n");
-  }
+    // Add the order to the list
+    this.#order.push({ itemName, quantity, cost });
 
-  placeOrder(itemName, quantity) {
-    if (this.#menu[itemName]) {
-      const cost = this.#menu[itemName] * quantity;
-      this.#order.push({ itemName, quantity, cost });
-      this.#total += cost;
-      console.log(`Ordered ${quantity} x ${itemName} = ₹${cost.toFixed(2)}`);
-    } else {
-      console.log(`Sorry, ${itemName} is not on the menu.`);
-    }
-  }
+    // Update the total bill
+    this.#total += cost;
 
-  applyDiscount(percentage) {
-    const discount = this.#total * (percentage / 100);
-    this.#total -= discount;
-    console.log(`Discount of ${percentage}% applied. You saved ₹${discount.toFixed(2)}!`);
-  }
-
-  generateBill() {
-    console.log("\n--- Final Bill ---");
-    this.#order.forEach(({ itemName, quantity, cost }) => {
-      console.log(`${itemName} x ${quantity} = ₹${cost.toFixed(2)}`);
-    });
-    console.log(`Total: ₹${this.#total.toFixed(2)}`);
-    console.log("------------------\n");
+    console.log(`Ordered ${quantity} x ${itemName} = ₹${cost}`);
+  } else {
+    console.log(`${itemName} is not available in the menu.`);
   }
 }
-
-// Example usage
-const restaurant = new RestaurantBillingSystem();
-restaurant.addMenu("Dosa", 50);
-restaurant.addMenu("Idli", 30);
-restaurant.addMenu("Vada", 20);
-
-restaurant.showMenu();
-
-restaurant.placeOrder("Dosa", 2);
-restaurant.placeOrder("Vada", 3);
-restaurant.applyDiscount(10);
-restaurant.generateBill();
