@@ -1,14 +1,28 @@
 class Car {
+  constructor() {
+    this.isEngineOn = false;
+  }
+
   start() {
+    this.isEngineOn = true;
     console.log("Car started");
   }
 
   drive() {
-    console.log("Car is driving");
+    if (this.isEngineOn) {
+      console.log("Car is driving");
+    } else {
+      console.log("Please start the car first");
+    }
   }
 
   stop() {
-    console.log("Car stopped");
+    if (this.isEngineOn) {
+      console.log("Car stopped");
+      this.isEngineOn = false;
+    } else {
+      console.log("Car is already off");
+    }
   }
 }
 
