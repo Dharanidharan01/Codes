@@ -1,62 +1,11 @@
-Task1)
-
-class ATM {
-  #balance = 1000; // private data
-
-  checkBalance() {
-    console.log(`Your balance is ₹${this.#balance}`);
-  }
-
-  withdraw(amount) {
-    if (amount <= this.#balance) {
-      this.#balance -= amount;
-      console.log(`Withdrawn ₹${amount}. New balance: ₹${this.#balance}`);
-    } else {
-      console.log("Insufficient balance.");
-    }
-  }
-}
-
-const userATM = new ATM();
-userATM.checkBalance();
-userATM.withdraw(500);
-
-Task 2)
-class Department {
-  constructor(deptName) {
-    this.deptName = deptName;
-  }
-
-  showDepartment() {
-    console.log(`Department: ${this.deptName}`);
-  }
-}
-
-class Employee extends Department {
-  constructor(name, deptName) {
-    super(deptName); // call parent constructor
-    this.name = name;
-  }
-
-  showEmployee() {
-    console.log(`Employee: ${this.name}`);
-    this.showDepartment(); // inherited method
-  }
-}
-
-const emp = new Employee("Dharanidharan", "IT");
-emp.showEmployee();
-
-
-
-Task 3)
-
+// Base class
 class Shape {
   calculateArea() {
-    console.log("Area not defined for generic shape.");
+    console.log("Area not defined for this shape.");
   }
 }
 
+// Circle class
 class Circle extends Shape {
   constructor(radius) {
     super();
@@ -64,10 +13,11 @@ class Circle extends Shape {
   }
 
   calculateArea() {
-    console.log(`Circle Area: ${Math.PI * this.radius * this.radius}`);
+    return Math.PI * this.radius * this.radius;
   }
 }
 
+// Rectangle class
 class Rectangle extends Shape {
   constructor(length, width) {
     super();
@@ -76,12 +26,43 @@ class Rectangle extends Shape {
   }
 
   calculateArea() {
-    console.log(`Rectangle Area: ${this.length * this.width}`);
+    return this.length * this.width;
   }
 }
 
-const shapes = [new Circle(5), new Rectangle(4, 6)];
-shapes.forEach(shape => shape.calculateArea());
+// Square class
+class Square extends Shape {
+  constructor(side) {
+    super();
+    this.side = side;
+  }
 
-Task 3)
+  calculateArea() {
+    return this.side * this.side;
+  }
+}
 
+// Triangle class
+class Triangle extends Shape {
+  constructor(base, height) {
+    super();
+    this.base = base;
+    this.height = height;
+  }
+
+  calculateArea() {
+    return 0.5 * this.base * this.height;
+  }
+}
+
+// Common function using polymorphism
+function showArea(shapeObject) {
+  const area = shapeObject.calculateArea();
+  console.log(`Area: ${area.toFixed(2)}`);
+}
+
+// Example usage
+showArea(new Circle(5));       // Circle with radius 5
+showArea(new Rectangle(4, 6)); // Rectangle with length 4 and width 6
+showArea(new Square(3));       // Square with side 3
+showArea(new Triangle(4, 5));  // Triangle with base 4 and height 5
