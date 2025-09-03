@@ -1,68 +1,19 @@
-// Base class
-class Shape {
-  calculateArea() {
-    console.log("Area not defined for this shape.");
+class Car {
+  start() {
+    console.log("Car started");
+  }
+
+  drive() {
+    console.log("Car is driving");
+  }
+
+  stop() {
+    console.log("Car stopped");
   }
 }
 
-// Circle class
-class Circle extends Shape {
-  constructor(radius) {
-    super();
-    this.radius = radius;
-  }
-
-  calculateArea() {
-    return Math.PI * this.radius * this.radius;
-  }
-}
-
-// Rectangle class
-class Rectangle extends Shape {
-  constructor(length, width) {
-    super();
-    this.length = length;
-    this.width = width;
-  }
-
-  calculateArea() {
-    return this.length * this.width;
-  }
-}
-
-// Square class
-class Square extends Shape {
-  constructor(side) {
-    super();
-    this.side = side;
-  }
-
-  calculateArea() {
-    return this.side * this.side;
-  }
-}
-
-// Triangle class
-class Triangle extends Shape {
-  constructor(base, height) {
-    super();
-    this.base = base;
-    this.height = height;
-  }
-
-  calculateArea() {
-    return 0.5 * this.base * this.height;
-  }
-}
-
-// Common function using polymorphism
-function showArea(shapeObject) {
-  const area = shapeObject.calculateArea();
-  console.log(`Area: ${area.toFixed(2)}`);
-}
-
-// Example usage
-showArea(new Circle(5));       // Circle with radius 5
-showArea(new Rectangle(4, 6)); // Rectangle with length 4 and width 6
-showArea(new Square(3));       // Square with side 3
-showArea(new Triangle(4, 5));  // Triangle with base 4 and height 5
+// Using abstraction
+const myCar = new Car();
+myCar.start();
+myCar.drive();
+myCar.stop();
