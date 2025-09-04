@@ -1,33 +1,7 @@
-class Car {
-  constructor() {
-    this.isEngineOn = false;
-  }
-
-  start() {
-    this.isEngineOn = true;
-    console.log("Car started");
-  }
-
-  drive() {
-    if (this.isEngineOn) {
-      console.log("Car is driving");
-    } else {
-      console.log("Please start the car first");
-    }
-  }
-
-  stop() {
-    if (this.isEngineOn) {
-      console.log("Car stopped");
-      this.isEngineOn = false;
-    } else {
-      console.log("Car is already off");
-    }
-  }
-}
-
-// Using abstraction
-const myCar = new Car();
-myCar.start();
-myCar.drive();
-myCar.stop();
+describe('Demo Session', function() {
+    it('Scenario 1', function() {
+        cy.visit("https://www.google.co.in");
+        cy.get('input[name="q"]').type('Cypress Testing{enter}');
+        cy.contains('cypress').should('be.visible');
+    });
+});
