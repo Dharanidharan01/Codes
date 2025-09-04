@@ -1,14 +1,26 @@
-describe('Demo Session', function() {
-    it('Scenario 1', function() {
-        cy.visit("https://practicetestautomation.com/practice-test-login/");
-        
-        // Enter username
-        cy.get('#username').type('student');
-        
-        // Enter password and submit with Enter key
-        cy.get('#password').type('Password123{enter}');
-        
-        // Optional: Verify successful login
-        cy.contains('Logged In Successfully').should('be.visible');
-    });
-});
+describe('Herokuapp UI Interactions', () => {
+  
+  it('Checkbox Test', () => {
+    cy.visit('https://the-internet.herokuapp.com/checkboxes')
+    cy.get('input[type="checkbox"]').first().check().should('be.checked')
+  })
+
+  it('Dropdown Test', () => {
+    cy.visit('https://the-internet.herokuapp.com/dropdown')
+    cy.get('#dropdown').select('Option 2').should('have.value', '2')
+  })
+
+  it('File Upload Test', () => {
+    cy.visit('https://the-internet.herokuapp.com/upload')
+    cy.get('#file-upload').selectFile('cypress/fixtures/sample.pdf')
+    cy.get('#file-submit').click()
+    cy.contains('File Uploaded!').should('be.visible')
+  })
+
+  it('Drag & Drop Test', () => {
+    cy.visit('https://the-internet.herokuapp.com/drag_and_drop')
+    cy.get('#column-a').drag('#column-b')
+    cy.get('#column-b').should('contain.text', 'A')
+  })
+
+})
