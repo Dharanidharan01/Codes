@@ -1,7 +1,8 @@
 describe('Demo Session', function() {
     it('Scenario 1', function() {
         cy.visit("https://www.google.co.in");
-        cy.get('input[name="q"]').type('Cypress Testing{enter}');
+        cy.get('input[name="q"]', { timeout: 10000 }).should('be.visible').type('Cypress Testing{enter}');
         cy.contains('cypress').should('be.visible');
     });
 });
+
