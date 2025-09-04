@@ -1,0 +1,4 @@
+cy.get('.menu').trigger('mouseover')
+cy.get('.draggable').trigger('mousedown', { which: 1 })
+  .trigger('mousemove', { clientX: 300, clientY: 200 })
+  .trigger('mouseup')
