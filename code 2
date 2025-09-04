@@ -1,40 +1,36 @@
 describe('Automation Testing Form - DemoQA', () => {
+
+  // Ignore Angular error from the site
+  Cypress.on('uncaught:exception', (err, runnable) => {
+    return false
+  })
+
   it('Fill Registration Form', () => {
     cy.visit('https://demo.automationtesting.in/Register.html')
 
-    // Text fields
     cy.get('input[placeholder="First Name"]').type('Dharanidharan')
     cy.get('input[placeholder="Last Name"]').type('S')
     cy.get('textarea[ng-model="Adress"]').type('123, Sample Street, Coimbatore')
     cy.get('input[type="email"]').type('dharani@example.com')
     cy.get('input[type="tel"]').type('9876543210')
 
-    // Gender radio button
     cy.get('input[value="Male"]').check({ force: true })
-
-    // Hobbies checkbox
     cy.get('input[type="checkbox"][value="Cricket"]').check({ force: true })
     cy.get('input[type="checkbox"][value="Movies"]').check({ force: true })
 
-    // Skills dropdown
     cy.get('#Skills').select('Java')
-
-    // Country dropdown
     cy.get('#countries').select('India')
 
-    // Select Country (searchable dropdown)
     cy.get('.select2-selection').click()
     cy.get('.select2-search__field').type('India{enter}')
 
-    // Date of Birth
     cy.get('#yearbox').select('1995')
     cy.get('select[placeholder="Month"]').select('May')
     cy.get('#daybox').select('10')
 
-    // Password fields
     cy.get('#firstpassword').type('Password123')
     cy.get('#secondpassword').type('Password123')
 
-    // Submit
     cy.get('#submitbtn').click()
   })
+})
