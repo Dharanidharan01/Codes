@@ -30,7 +30,7 @@ describe('Automation Testing Form - DemoQA', () => {
 
     cy.get('#firstpassword').type('Password123')
     cy.get('#secondpassword').type('Password123')
-
+.get('input[type="file"]').selectFile('cypress/fixtures/sample.jpg')
     cy.get('#submitbtn').click()
   })
 })
