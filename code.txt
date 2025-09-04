@@ -1,8 +1,14 @@
 describe('Demo Session', function() {
     it('Scenario 1', function() {
-        cy.visit("https://www.google.co.in");
-        cy.get('input[name="q"]', { timeout: 10000 }).should('be.visible').type('Cypress Testing{enter}');
-        cy.contains('cypress').should('be.visible');
+        cy.visit("https://practicetestautomation.com/practice-test-login/");
+        
+        // Enter username
+        cy.get('#username').type('student');
+        
+        // Enter password and submit with Enter key
+        cy.get('#password').type('Password123{enter}');
+        
+        // Optional: Verify successful login
+        cy.contains('Logged In Successfully').should('be.visible');
     });
 });
-
