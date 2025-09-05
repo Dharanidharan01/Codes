@@ -1,1 +1,10 @@
-cy.get('button.unified-event-hero-date-and-location__item-wrapper').click();
+
+// Step 2: Wait for the popup to appear (adjust timeout if needed)
+cy.get('.popup-selector', { timeout: 10000 }).should('be.visible'); // Replace '.popup-selector' with actual popup class if known
+
+// Step 3: Click the toggle cosmos-button (assuming it's a button with class 'cosmos-button')
+cy.get('button.cosmos-button').click();
+
+// Step 4: Click the "Add to Calendar" button using its full class name
+cy.get('a.cosmos-button.cosmos-button--kind-secondary.cosmos-button--appearance-dark.cosmos-button--shape-pill.cosmos-button--size-small.cosmos-button--icon-before.cosmos-button--width-content.cosmos-button--has-icon')
+  .click();
