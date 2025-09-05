@@ -1,10 +1,5 @@
 
-// Step 5: Click the "Switch to your time" toggle button
-    cy.get('button.event-time-timezone-toggle_toggle', { timeout: 10000 })
-      .should('be.visible')
-      .click()
-
-    // Step 6: Click the "Add to Calendar" button
-    cy.get('a.cosmos-button[href*=".ics"]', { timeout: 10000 })
+    // Click Add to Calendar using XPath
+    cy.xpath('//*[@id="page-main"]/div/main/div[1]/div/cosmos-mode-11-0-2/div/div/div[1]/div[2]/div/cosmos-mode-11-0-2/dialog/div/div[2]/section/div[2]/cosmos-button-11-0-2//a', { timeout: 10000 })
       .should('be.visible')
       .click()
