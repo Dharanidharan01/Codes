@@ -1,13 +1,14 @@
-describe('Ticketmaster Search Test - Phoenix Suns', () => {
-  it('Should search for Phoenix Suns on Ticketmaster', () => {
+describe('Ticketmaster Search - Phoenix Suns', () => {
+  it('Should search for Phoenix Suns directly from homepage', () => {
     cy.visit('https://www.ticketmaster.com/')
 
-    // Wait for the search bar to appear
+    // Directly target the search input field and type the query
     cy.get('input[placeholder="Search for an artist, event or venue"]', { timeout: 10000 })
       .should('be.visible')
+      .click()
       .type('Phoenix Suns{enter}')
 
-    // Confirm search results
+    // Confirm that the search results page loads
     cy.url().should('include', 'search')
     cy.contains('Phoenix Suns').should('exist')
   })
