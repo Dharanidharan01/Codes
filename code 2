@@ -1,13 +1,31 @@
 describe('Automation Testing Form - DemoQA', () => {
-
-  // Ignore Angular error from the site
+  // Handle uncaught exceptions
   Cypress.on('uncaught:exception', (err, runnable) => {
     return false
   })
 
-  it('Fill Registration Form', () => {
-    cy.visit('https://demo.automationtesting.in/Register.html')
+  // Runs ONCE before all tests
+  before(() => {
+    cy.log('*** Starting Automation Testing Form Suite ***')
+  })
 
+  // Runs ONCE after all tests
+  after(() => {
+    cy.log('*** Completed Automation Testing Form Suite ***')
+  })
+
+  // Runs before EACH test
+  beforeEach(() => {
+    cy.visit('https://demo.automationtesting.in/Register.html')
+    cy.log('*** Opening Registration Page ***')
+  })
+
+  // Runs after EACH test
+  afterEach(() => {
+    cy.log('*** Finished executing a test ***')
+  })
+
+  it('Fill Registration Form', () => {
     cy.get('input[placeholder="First Name"]').type('Dharanidharan')
     cy.get('input[placeholder="Last Name"]').type('S')
     cy.get('textarea[ng-model="Adress"]').type('123, Sample Street, Coimbatore')
@@ -17,9 +35,7 @@ describe('Automation Testing Form - DemoQA', () => {
     cy.get('input[value="Male"]').check({ force: true })
     cy.get('input[type="checkbox"][value="Cricket"]').check({ force: true })
     cy.get('input[type="checkbox"][value="Movies"]').check({ force: true })
-
-    cy.get('#Skills').select('Java')
-    cy.get('#countries').select('India')
+    cy.get('#Skills').select('C')
 
     cy.get('.select2-selection').click()
     cy.get('.select2-search__field').type('India{enter}')
@@ -30,7 +46,14 @@ describe('Automation Testing Form - DemoQA', () => {
 
     cy.get('#firstpassword').type('Password123')
     cy.get('#secondpassword').type('Password123')
-.get('input[type="file"]').selectFile('cypress/fixtures/sample.jpg')
+    cy.get('input[type="file"]').selectFile('cypress/fixtures/sample.pdf')
+
+    // Take screenshot of the filled form
+    cy.screenshot('filled-registration-form')
+
+    // Take screenshot of a specific element (e.g., First Name field)
+    cy.get('input[placeholder="First Name"]').screenshot('first-name-field')
+
     cy.get('#submitbtn').click()
   })
 })
