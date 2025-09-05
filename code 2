@@ -1,23 +1,38 @@
-describe('Cadbury Gifts Direct - Search Test', () => {
-  it('Should navigate to Dairy Milk page and search for "slik"', () => {
-    // Step 1: Visit the homepage
-    cy.visit('https://www.cadburygiftsdirect.co.uk/')
+// cypress/e2e/cadbury_products.cy.js
 
-    // Step 2: Wait for "SHOP NOW" to appear and click it
-    cy.contains('SHOP NOW', { timeout: 10000 })
+describe('Cadbury UK - Navigate to Products from Dairy Milk page', () => {
+  const brandPath = 'https://www.cadbury.co.uk/products/brands/cadbury-dairy-milk/';
+
+  const acceptCookiesIfPresent = () => {
+    cy.document().then((doc) => {
+      const btn =
+        doc.querySelector('#onetrust-accept-btn-handler') ||
+        doc.querySelector('button#onetrust-accept-btn-handler') ||
+        doc.querySelector('[aria-label*="Accept"][id*="onetrust"]');
+      if (btn) cy.wrap(btn).click({ force: true });
+    });
+
+    cy.contains('button, [role="button"]', /accept all|accept|agree/i, { timeout: 1000 })
+      .then(($btn) => {
+        if ($btn.length) cy.wrap($btn.first()).click({ force: true });
+      })
+      .catch(() => {});
+  };
+
+  it('Clicks PRODUCTS breadcrumb and verifies navigation', () => {
+    cy.visit(brandPath, { timeout: 60000 });
+
+    acceptCookiesIfPresent();
+
+    // Click the PRODUCTS breadcrumb link
+    cy.get('a[aria-label="PRODUCTS"][href="/products/"]', { timeout: 15000 })
       .should('be.visible')
-      .scrollIntoView()
-      .click()
+      .click();
 
-    // Step 3: Confirm navigation to Dairy Milk page
-    cy.url().should('include', '/dairy-milk')
+    // Verify navigation to /products/
+    cy.location('pathname', { timeout: 15000 }).should('eq', '/products/');
 
-    // Step 4: Type "slik" into the search input field
-    cy.get('input#search', { timeout: 10000 })
-      .should('be.visible')
-      .type('slik{enter}')
-
-    // Step 5: Confirm search results page loads
-    cy.url().should('include', 'search')
-  })
-})
+    // Basic check for Products page content
+    cy.contains(/products/i).should('be.visible');
+  });
+});
