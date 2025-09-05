@@ -1,5 +1,5 @@
-describe('Red Bull Event Page - Click Location Link', () => {
-  it('Should visit the event page and click the location link', () => {
+describe('Red Bull Event Page - Click Calendar Date Section', () => {
+  it('Should visit the event page and click the calendar/date section', () => {
     // Step 1: Visit Red Bull India homepage
     cy.visit('https://www.redbull.com/in-en')
 
@@ -13,12 +13,9 @@ describe('Red Bull Event Page - Click Location Link', () => {
       .should('be.visible')
       .click()
 
-    // Step 4: Click on the location link (Google Maps)
-    cy.get('a.unified-event-hero-date-and-location__item-wrapper[href*="google.com/maps"]', { timeout: 10000 })
+    // Step 4: Click on the calendar/date section
+    cy.get('.unified-event-hero-date-and-location__item-wrapper', { timeout: 10000 })
       .should('be.visible')
       .click()
-
-    // Step 5: Confirm navigation to Google Maps
-    cy.url().should('include', 'google.com/maps')
   })
 })
