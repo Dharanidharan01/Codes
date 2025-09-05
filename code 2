@@ -1,15 +1,20 @@
-describe('Ticketmaster Search - Phoenix Suns', () => {
-  it('Should search for Phoenix Suns directly from homepage', () => {
-    cy.visit('https://www.ticketmaster.com/')
+describe('Cadbury Gifts Direct - Search Test', () => {
+  it('Should navigate to Dairy Milk page and search for "slik"', () => {
+    // Step 1: Visit the homepage
+    cy.visit('https://www.cadburygiftsdirect.co.uk/')
 
-    // Use the ID selector for the search input field
-    cy.get('#search-input', { timeout: 10000 })
+    // Step 2: Scroll down and click "SHOP NOW"
+    cy.contains('SHOP NOW').scrollIntoView().click()
+
+    // Step 3: Wait for the new page to load
+    cy.url().should('include', '/dairy-milk')
+
+    // Step 4: Type "slik" into the search input field
+    cy.get('input#search', { timeout: 10000 })
       .should('be.visible')
-      .click()
-      .type('Phoenix Suns{enter}')
+      .type('slik{enter}')
 
-    // Confirm that the search results page loads
+    // Step 5: Confirm search results page loads
     cy.url().should('include', 'search')
-    cy.contains('Phoenix Suns').should('exist')
   })
 })
