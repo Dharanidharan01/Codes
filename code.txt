@@ -1,22 +1,24 @@
-describe('Red Bull Events Page - Select Specific Event', () => {
-  it('Should visit Events page and click on Red Bull King of the Air Qualifier', () => {
+describe('Red Bull Event Page - Click Location Link', () => {
+  it('Should visit the event page and click the location link', () => {
     // Step 1: Visit Red Bull India homepage
     cy.visit('https://www.redbull.com/in-en')
 
-    // Step 2: Click on "Events" in the navigation
+    // Step 2: Click on "Events"
     cy.get('a.header-navigation-links__item[href="/events"]', { timeout: 10000 })
       .should('be.visible')
       .click()
 
-    // Step 3: Wait for the Events page to load
-    cy.url().should('include', '/events')
-
-    // Step 4: Click on the specific event card using alt text
+    // Step 3: Click on the specific event
     cy.get('img[alt="Red Bull King of the Air Qualifier Denmark Key Visual"]', { timeout: 10000 })
       .should('be.visible')
       .click()
 
-    // Step 5: Confirm navigation to the event details page
-    cy.url().should('include', 'king-of-the-air')
+    // Step 4: Click on the location link (Google Maps)
+    cy.get('a.unified-event-hero-date-and-location__item-wrapper[href*="google.com/maps"]', { timeout: 10000 })
+      .should('be.visible')
+      .click()
+
+    // Step 5: Confirm navigation to Google Maps
+    cy.url().should('include', 'google.com/maps')
   })
 })
