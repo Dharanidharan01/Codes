@@ -1,29 +1,22 @@
 describe('Ticketmaster Login Automation - College Project', () => {
-  before(() => {
-    cy.log('Starting Ticketmaster Login Test')
-  })
-
   it('Should login with valid credentials', () => {
     // Step 1: Visit Ticketmaster homepage
     cy.visit('https://www.ticketmaster.com/')
-
-    // Step 2: Click on Sign In/Register button
     cy.contains('Sign In/Register').click()
 
-    // Step 3: Enter email and click Continue
-    cy.get('input#email').type('dharanidharans175@gmail.com')
-    cy.contains('Continue').click()
+    // Step 2: Handle login on auth.ticketmaster.com
+    cy.origin('https://auth.ticketmaster.com', () => {
+      // Step 3: Enter email and click Continue
+      cy.get('input#email').type('dharanidharans175@gmail.com')
+      cy.contains('Continue').click()
 
-    // Step 4: Enter password and click Sign In
-    cy.get('input#password').type('Opdharani@12345')
-    cy.contains('Sign In').click()
+      // Step 4: Enter password and click Sign In
+      cy.get('input#password').type('Opdharani@12345')
+      cy.contains('Sign In').click()
+    })
 
-    // Step 5: Confirm login success (you can check for a user icon or dashboard)
+    // Step 5: Back to main site - confirm login
     cy.url().should('include', 'ticketmaster.com')
     cy.log('Login successful')
-  })
-
-  after(() => {
-    cy.log('Completed Ticketmaster Login Test')
   })
 })
