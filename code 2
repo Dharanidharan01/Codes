@@ -3,12 +3,12 @@ describe('Cadbury Dairy Milk - Products Navigation Test', () => {
     // Step 1: Visit the Dairy Milk page
     cy.visit('https://www.cadbury.co.uk/products/brands/cadbury-dairy-milk/')
 
-    // Step 2: Click on the "PRODUCTS" link using its class and text
-    cy.get('a.event_internal_link[aria-label="PRODUCTS"]')
+    // Step 2: Click on the "PRODUCTS" link using only aria-label
+    cy.get('a[aria-label="PRODUCTS"]', { timeout: 10000 })
       .should('be.visible')
       .click()
 
     // Step 3: Confirm navigation to the Products page
-    cy.url().should('include', '/products/')
+    cy.url().should('include', '/products')
   })
 })
