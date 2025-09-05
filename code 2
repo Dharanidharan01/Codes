@@ -1,38 +1,14 @@
-// cypress/e2e/cadbury_products.cy.js
+describe('Cadbury Dairy Milk - Products Navigation Test', () => {
+  it('Should visit the Dairy Milk page and click on Products', () => {
+    // Step 1: Visit the Dairy Milk page
+    cy.visit('https://www.cadbury.co.uk/products/brands/cadbury-dairy-milk/')
 
-describe('Cadbury UK - Navigate to Products from Dairy Milk page', () => {
-  const brandPath = 'https://www.cadbury.co.uk/products/brands/cadbury-dairy-milk/';
-
-  const acceptCookiesIfPresent = () => {
-    cy.document().then((doc) => {
-      const btn =
-        doc.querySelector('#onetrust-accept-btn-handler') ||
-        doc.querySelector('button#onetrust-accept-btn-handler') ||
-        doc.querySelector('[aria-label*="Accept"][id*="onetrust"]');
-      if (btn) cy.wrap(btn).click({ force: true });
-    });
-
-    cy.contains('button, [role="button"]', /accept all|accept|agree/i, { timeout: 1000 })
-      .then(($btn) => {
-        if ($btn.length) cy.wrap($btn.first()).click({ force: true });
-      })
-      .catch(() => {});
-  };
-
-  it('Clicks PRODUCTS breadcrumb and verifies navigation', () => {
-    cy.visit(brandPath, { timeout: 60000 });
-
-    acceptCookiesIfPresent();
-
-    // Click the PRODUCTS breadcrumb link
-    cy.get('a[aria-label="PRODUCTS"][href="/products/"]', { timeout: 15000 })
+    // Step 2: Click on the "PRODUCTS" link using its class and text
+    cy.get('a.event_internal_link[aria-label="PRODUCTS"]')
       .should('be.visible')
-      .click();
+      .click()
 
-    // Verify navigation to /products/
-    cy.location('pathname', { timeout: 15000 }).should('eq', '/products/');
-
-    // Basic check for Products page content
-    cy.contains(/products/i).should('be.visible');
-  });
-});
+    // Step 3: Confirm navigation to the Products page
+    cy.url().should('include', '/products/')
+  })
+})
