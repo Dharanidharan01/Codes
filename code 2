@@ -1,14 +1,14 @@
-describe('Cadbury Dairy Milk - Products Navigation Test', () => {
-  it('Should visit the Dairy Milk page and click on Products', () => {
-    // Step 1: Visit the Dairy Milk page
-    cy.visit('https://www.cadbury.co.uk/products/brands/cadbury-dairy-milk/')
+describe('Red Bull Website - Events Navigation Test', () => {
+  it('Should visit Red Bull India and click on Events', () => {
+    // Step 1: Visit the Red Bull India homepage
+    cy.visit('https://www.redbull.com/in-en')
 
-    // Step 2: Click on the "PRODUCTS" link using only aria-label
-    cy.get('a[aria-label="PRODUCTS"]', { timeout: 10000 })
+    // Step 2: Click on the "Events" link in the header
+    cy.get('a.header-navigation-links__item[href="/events"]', { timeout: 10000 })
       .should('be.visible')
       .click()
 
-    // Step 3: Confirm navigation to the Products page
-    cy.url().should('include', '/products')
+    // Step 3: Confirm navigation to the Events page
+    cy.url().should('include', '/events')
   })
 })
