@@ -1,1 +1,5 @@
-cy.get('button[aria-label="Log In"]').click()
+
+cy.get('input[type="email"]').type('your-email@example.com') // Replace with actual test email
+
+// Step: Click the Continue button
+cy.get('button').contains('Continue').click()
