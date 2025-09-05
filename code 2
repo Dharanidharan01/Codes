@@ -1,13 +1,14 @@
-describe('AliExpress Search Automation - College Project', () => {
-  it('Should search for iPhone on AliExpress', () => {
-    // Step 1: Visit AliExpress US homepage
-    cy.visit('https://www.aliexpress.us/?gatewayAdapt=glo2usa')
+describe('Ticketmaster Search Test - Phoenix Suns', () => {
+  it('Should search for Phoenix Suns on Ticketmaster', () => {
+    // Step 1: Visit Ticketmaster homepage
+    cy.visit('https://www.ticketmaster.com/')
 
-    // Step 2: Type "iPhone" in the search bar and press Enter
-    cy.get('input[placeholder="Search"]').type('iPhone{enter}')
+    // Step 2: Type "Phoenix Suns" in the search bar and press Enter
+    cy.get('input[placeholder="Search for an artist, event or venue"]')
+      .type('Phoenix Suns{enter}')
 
-    // Step 3: Wait for results to load and confirm
+    // Step 3: Confirm that results page loads
     cy.url().should('include', 'search')
-    cy.contains('iPhone').should('exist')
+    cy.contains('Phoenix Suns').should('exist')
   })
 })
