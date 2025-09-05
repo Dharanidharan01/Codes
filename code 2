@@ -2,8 +2,8 @@ describe('Ticketmaster Search - Phoenix Suns', () => {
   it('Should search for Phoenix Suns directly from homepage', () => {
     cy.visit('https://www.ticketmaster.com/')
 
-    // Directly target the search input field and type the query
-    cy.get('input[placeholder="Search for an artist, event or venue"]', { timeout: 10000 })
+    // Use the ID selector for the search input field
+    cy.get('#search-input', { timeout: 10000 })
       .should('be.visible')
       .click()
       .type('Phoenix Suns{enter}')
