@@ -1,8 +1,9 @@
-const clicklogin = () => {
-  cy.get('button[aria-label="Log In"]').click()
-
-  cy.origin('https://login.redbull.com', () => {
-    cy.get('input[type="email"]').type('dhara@example.com')
-    cy.get('button').contains('Continue').click()
-  })
-}
+describe('DOB Selector - Dropdowns', () => {
+  it('Selects DOB using select()', () => {
+    cy.visit('https://demo.automationtesting.in/Register.html');
+ 
+    cy.get('#year').select('1995');  // select year
+    cy.get('#month').select('May');  // select month
+    cy.get('#day').select('15');     // select day
+  });
+});
