@@ -1,8 +1,10 @@
-cy.get('.unified-event-hero-date-and-location__item-wrapper')
-  .first()
-  .should('be.visible')
-  .click()
 
-cy.get('.unified-event-hero-date-and-location__item-wrapper')
-  .should('have.length.greaterThan', 0)
-  .click({ multiple: true })
+// Step 5: Click the "Switch to your time" toggle button
+    cy.get('button.event-time-timezone-toggle_toggle', { timeout: 10000 })
+      .should('be.visible')
+      .click()
+
+    // Step 6: Click the "Add to Calendar" button
+    cy.get('a.cosmos-button[href*=".ics"]', { timeout: 10000 })
+      .should('be.visible')
+      .click()
