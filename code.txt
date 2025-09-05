@@ -1,5 +1,1 @@
-
-    // Click Add to Calendar using XPath
-    cy.xpath('//*[@id="page-main"]/div/main/div[1]/div/cosmos-mode-11-0-2/div/div/div[1]/div[2]/div/cosmos-mode-11-0-2/dialog/div/div[2]/section/div[2]/cosmos-button-11-0-2//a', { timeout: 10000 })
-      .should('be.visible')
-      .click()
+cy.get('button.unified-event-hero-date-and-location__item-wrapper').click();
