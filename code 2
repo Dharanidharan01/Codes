@@ -1,59 +1,44 @@
-describe('Automation Testing Form - DemoQA', () => {
-  // Handle uncaught exceptions
-  Cypress.on('uncaught:exception', (err, runnable) => {
-    return false
-  })
-
-  // Runs ONCE before all tests
+describe('Ticketmaster Website Test - College Project', () => {
   before(() => {
-    cy.log('*** Starting Automation Testing Form Suite ***')
+    cy.log('Starting Ticketmaster Test Suite')
   })
 
-  // Runs ONCE after all tests
-  after(() => {
-    cy.log('*** Completed Automation Testing Form Suite ***')
-  })
-
-  // Runs before EACH test
   beforeEach(() => {
-    cy.visit('https://demo.automationtesting.in/Register.html')
-    cy.log('*** Opening Registration Page ***')
+    cy.visit('https://www.ticketmaster.com/')
+    cy.log('Opened Ticketmaster Homepage')
   })
 
-  // Runs after EACH test
+  it('Should load homepage and check title', () => {
+    cy.title().should('include', 'Ticketmaster')
+    cy.screenshot('homepage')
+  })
+
+  it('Should login with test credentials', () => {
+    cy.contains('Sign In').click()
+    cy.get('input[type="email"]').type('dharanidharans175@gmail.com')
+    cy.get('input[type="password"]').type('Opdharani@12345')
+    cy.get('button[type="submit"]').click()
+    cy.log('Logged in with test account')
+    cy.screenshot('after-login')
+  })
+
+  it('Should search for an event', () => {
+    cy.get('input[placeholder*="Search"]').type('Coldplay{enter}')
+    cy.wait(3000) // wait for results to load
+    cy.screenshot('search-results')
+  })
+
+  it('Should navigate to Concerts section', () => {
+    cy.contains('Concerts').click()
+    cy.url().should('include', 'concerts')
+    cy.screenshot('concerts-page')
+  })
+
   afterEach(() => {
-    cy.log('*** Finished executing a test ***')
+    cy.log('Finished executing a test')
   })
 
-  it('Fill Registration Form', () => {
-    cy.get('input[placeholder="First Name"]').type('Dharanidharan')
-    cy.get('input[placeholder="Last Name"]').type('S')
-    cy.get('textarea[ng-model="Adress"]').type('123, Sample Street, Coimbatore')
-    cy.get('input[type="email"]').type('dharani@example.com')
-    cy.get('input[type="tel"]').type('9876543210')
-
-    cy.get('input[value="Male"]').check({ force: true })
-    cy.get('input[type="checkbox"][value="Cricket"]').check({ force: true })
-    cy.get('input[type="checkbox"][value="Movies"]').check({ force: true })
-    cy.get('#Skills').select('C')
-
-    cy.get('.select2-selection').click()
-    cy.get('.select2-search__field').type('India{enter}')
-
-    cy.get('#yearbox').select('1995')
-    cy.get('select[placeholder="Month"]').select('May')
-    cy.get('#daybox').select('10')
-
-    cy.get('#firstpassword').type('Password123')
-    cy.get('#secondpassword').type('Password123')
-    cy.get('input[type="file"]').selectFile('cypress/fixtures/sample.pdf')
-
-    // Take screenshot of the filled form
-    cy.screenshot('filled-registration-form')
-
-    // Take screenshot of a specific element (e.g., First Name field)
-    cy.get('input[placeholder="First Name"]').screenshot('first-name-field')
-
-    cy.get('#submitbtn').click()
+  after(() => {
+    cy.log('Completed Ticketmaster Test Suite')
   })
 })
