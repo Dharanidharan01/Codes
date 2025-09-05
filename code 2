@@ -3,10 +3,13 @@ describe('Cadbury Gifts Direct - Search Test', () => {
     // Step 1: Visit the homepage
     cy.visit('https://www.cadburygiftsdirect.co.uk/')
 
-    // Step 2: Scroll down and click "SHOP NOW"
-    cy.contains('SHOP NOW').scrollIntoView().click()
+    // Step 2: Wait for "SHOP NOW" to appear and click it
+    cy.contains('SHOP NOW', { timeout: 10000 })
+      .should('be.visible')
+      .scrollIntoView()
+      .click()
 
-    // Step 3: Wait for the new page to load
+    // Step 3: Confirm navigation to Dairy Milk page
     cy.url().should('include', '/dairy-milk')
 
     // Step 4: Type "slik" into the search input field
