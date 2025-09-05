@@ -1,5 +1,22 @@
-it('Drag & Drop Test', () => {
-  cy.visit('https://the-internet.herokuapp.com/drag_and_drop')
-  cy.dragAndDrop('#column-a', '#column-b')
-  cy.get('#column-b').should('contain.text', 'A')
+describe('Red Bull Events Page - Select Specific Event', () => {
+  it('Should visit Events page and click on Red Bull King of the Air Qualifier', () => {
+    // Step 1: Visit Red Bull India homepage
+    cy.visit('https://www.redbull.com/in-en')
+
+    // Step 2: Click on "Events" in the navigation
+    cy.get('a.header-navigation-links__item[href="/events"]', { timeout: 10000 })
+      .should('be.visible')
+      .click()
+
+    // Step 3: Wait for the Events page to load
+    cy.url().should('include', '/events')
+
+    // Step 4: Click on the specific event card using alt text
+    cy.get('img[alt="Red Bull King of the Air Qualifier Denmark Key Visual"]', { timeout: 10000 })
+      .should('be.visible')
+      .click()
+
+    // Step 5: Confirm navigation to the event details page
+    cy.url().should('include', 'king-of-the-air')
+  })
 })
