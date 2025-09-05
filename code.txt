@@ -1,4 +1,1 @@
-
-cy.get('a.energy-drink-feed-card.energy-drink-feed-card--compact')
-  .contains('Red Bull Energy Drink')
-  .click()
+cy.get('button[aria-label="Log In"]').click()
