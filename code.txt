@@ -1,4 +1,9 @@
 
-cy.origin('https://login.redbull.com', () => {
+const clicklogin = () => {
+  cy.get('button[aria-label="Log In"]').click()
+
+  cy.origin('https://login.redbull.com', () => {
     cy.get('input[type="email"]').type('dhara@example.com') // Replace with actual test email
     cy.get('button').contains('Continue').click()
+  })
+}
