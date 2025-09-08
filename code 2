@@ -1,7 +1,1 @@
-it('Iframe Test', () => {
-    cy.visit('https://the-internet.herokuapp.com/iframe')
-    cy.get('iframe').then($iframe => {
-        const body = $iframe.contents().find('body')
-        cy.wrap(body).find('p').should('contain.text', 'Your content goes here.')
-    })
-})
+.contains('Red Bull Triple Thrill').click()
