@@ -34,4 +34,10 @@ describe('DemoQA Practice Form Automation', () => {
     cy.get('#state').click().get('#react-select-3-option-0').click(); // NCR
     cy.get('#city').click().get('#react-select-4-option-0').click(); // Delhi
 
-   
+    // Submit
+    cy.get('#submit').click({ force: true });
+
+    // Assertion
+    cy.get('.modal-content').should('contain', 'Thanks for submitting the form');
+  });
+});
