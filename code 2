@@ -1,59 +1,42 @@
-describe('Vinoth QA Academy Form - Invalid Inputs', () => {
-  before(() => {
-    cy.log('Invalid Form Test');
-  });
-
+describe('DemoQA Practice Form - Invalid Email and Mobile Number', () => {
   beforeEach(() => {
-    cy.visit('https://vinothqaacademy.com/demo-site/');
+    Cypress.on('uncaught:exception', () => false);
+    cy.visit('https://demoqa.com/automation-practice-form');
   });
 
-  afterEach(() => {
-    cy.log('Test completed');
-  });
+  it('shows validation errors for invalid email and mobile number', () => {
+    cy.get('#firstName').type('Dharanidharan');
+    cy.get('#lastName').type('S');
 
-  after(() => {
-    cy.log('Invalid Form Test Finished');
-  });
-
-  Cypress.on('uncaught:exception', () => false);
-
-  it('shows validation errors for invalid email and verification code', () => {
-    cy.get('#vfb-5').type('Dharanidharan');
-    cy.get('#vfb-7').type('S');
-    cy.get('input[value="Male"]').check({ force: true });
-    cy.get('input[type="checkbox"][value="Selenium WebDriver"]').check({ force: true });
-    cy.get('input[type="checkbox"][value="Java"]').check({ force: true });
-    cy.get('#vfb-13-address').type('Udumalaipettai');
-    cy.get('#vfb-13-address-2').type('Gudimangalam');
-    cy.get('#vfb-13-city').type('Tiruppur');
-    cy.get('#vfb-13-state').type('Tamil Nadu');
-    cy.get('#vfb-13-zip').type('642201');
-    cy.get('#select2-vfb-13-country-container').click({ force: true });
-    cy.get('input[type="search"]').type('India{enter}');
-    
     // ❌ Invalid Email
-    cy.get('#vfb-14').type('invalid-email');
+    cy.get('#userEmail').type('invalid-email');
 
-    cy.get('#vfb-18').click().type('01/21/2025');
-    cy.get('#select2-vfb-16-hour-container').click({ force: true });
-    cy.get('input[type="search"]').type('22{enter}');
-    cy.get('#select2-vfb-16-min-container').click({ force: true });
-    cy.get('input[type="search"]').type('15{enter}');
-    cy.get('#vfb-19').type('9847567281');
-    cy.get('#vfb-23').type('VTech');
+    cy.get('label[for="gender-radio-1"]').click();
 
-    // ❌ Invalid Verification Code (more than 2 characters)
-    cy.get('#vfb-3').type('34567');
+    // ❌ Invalid Mobile Number (less than 10 digits)
+    cy.get('#userNumber').type('12345');
 
-    // Submit
-    cy.get('#vfb-4').click();
+    // Fill other required fields minimally to allow form submission
+    cy.get('#dateOfBirthInput').click();
+    cy.get('.react-datepicker__month-select').select('May');
+    cy.get('.react-datepicker__year-select').select('2003');
+    cy.get('.react-datepicker__day--015:not(.react-datepicker__day--outside-month)').click();
+
+    cy.get('.subjects-auto-complete__value-container').type('Maths{enter}');
+    cy.get('label[for="hobbies-checkbox-1"]').click();
+    cy.get('#uploadPicture').selectFile('cypress/fixtures/sample.pdf');
+    cy.get('#currentAddress').type('123, Coimbatore, Tamil Nadu');
+    cy.get('#state').click().get('#react-select-3-option-0').click();
+    cy.get('#city').click().get('#react-select-4-option-0').click();
+
+    // Submit the form
+    cy.get('#submit').click({ force: true });
 
     // ✅ Assertions
-    cy.get('#vfb-14').should('have.attr', 'aria-invalid', 'true');
-    cy.get('#vfb-3').should('have.attr', 'aria-invalid', 'true');
+    cy.get('#userEmail').should('have.css', 'border-color', 'rgb(220, 53, 69)');
+    cy.get('#userNumber').should('have.css', 'border-color', 'rgb(220, 53, 69)');
 
-    // Optional: Check for error messages
-    cy.contains('Please enter a valid email address').should('be.visible');
-    cy.contains('Please enter no more than 2 characters').should('be.visible');
+    // Modal should not appear
+    cy.get('.modal-content').should('not.exist');
   });
 });
