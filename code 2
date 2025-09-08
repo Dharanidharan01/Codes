@@ -13,10 +13,10 @@ describe('DemoQA Practice Form - Invalid Email and Mobile Number', () => {
 
     cy.get('label[for="gender-radio-1"]').click();
 
-    // ❌ Invalid Mobile Number (less than 10 digits)
-    cy.get('#userNumber').type('12345');
+    // ❌ Invalid Mobile Number (non-numeric)
+    cy.get('#userNumber').type('abcde');
 
-    // Fill other required fields minimally to allow form submission
+    // Fill other required fields
     cy.get('#dateOfBirthInput').click();
     cy.get('.react-datepicker__month-select').select('May');
     cy.get('.react-datepicker__year-select').select('2003');
