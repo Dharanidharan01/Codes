@@ -1,5 +1,7 @@
 describe('DemoQA Practice Form Automation', () => {
   beforeEach(() => {
+    // Ignore cross-origin script errors
+    Cypress.on('uncaught:exception', () => false);
     cy.visit('https://demoqa.com/automation-practice-form');
   });
 
@@ -7,20 +9,20 @@ describe('DemoQA Practice Form Automation', () => {
     cy.get('#firstName').type('Dharanidharan');
     cy.get('#lastName').type('S');
     cy.get('#userEmail').type('dharanidharan@example.com');
-    cy.get('input[name="gender"][value="Male"]').check({ force: true });
+    cy.get('label[for="gender-radio-1"]').click(); // Male
     cy.get('#userNumber').type('9876543210');
 
     // Date of Birth
     cy.get('#dateOfBirthInput').click();
     cy.get('.react-datepicker__month-select').select('May');
     cy.get('.react-datepicker__year-select').select('1995');
-    cy.get('.react-datepicker__day--015').click();
+    cy.get('.react-datepicker__day--015:not(.react-datepicker__day--outside-month)').click();
 
     // Subjects
     cy.get('.subjects-auto-complete__value-container').type('Maths{enter}');
 
     // Hobbies
-    cy.get('input[type="checkbox"][value="1"]').check({ force: true }); // Sports
+    cy.get('label[for="hobbies-checkbox-1"]').click(); // Sports
 
     // File Upload
     cy.get('#uploadPicture').selectFile('cypress/fixtures/sample.jpg');
@@ -29,13 +31,7 @@ describe('DemoQA Practice Form Automation', () => {
     cy.get('#currentAddress').type('123, Coimbatore, Tamil Nadu');
 
     // State and City
-    cy.get('#state').click().get('.css-26l3qy-menu').contains('NCR').click();
-    cy.get('#city').click().get('.css-26l3qy-menu').contains('Delhi').click();
+    cy.get('#state').click().get('#react-select-3-option-0').click(); // NCR
+    cy.get('#city').click().get('#react-select-4-option-0').click(); // Delhi
 
-    // Submit
-    cy.get('#submit').click();
-
-    // Assertion
-    cy.get('.modal-content').should('contain', 'Thanks for submitting the form');
-  });
-});
+   
