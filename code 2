@@ -1,42 +1,19 @@
-describe('DemoQA Practice Form - Invalid Email and Mobile Number', () => {
-  beforeEach(() => {
-    Cypress.on('uncaught:exception', () => false);
-    cy.visit('https://demoqa.com/automation-practice-form');
-  });
+describe("Get Method", function(){
 
-  it('shows validation errors for invalid email and mobile number', () => {
-    cy.get('#firstName').type('Dharanidharan');
-    cy.get('#lastName').type('S');
+    it("Scenario 2", function(){
 
-    // ❌ Invalid Email
-    cy.get('#userEmail').type('invalid-email');
+        cy.request("GET", "https://jsonplaceholder.cypress.io/comments", {
 
-    cy.get('label[for="gender-radio-1"]').click();
+        }).then((r) => {
 
-    // ❌ Invalid Mobile Number (non-numeric)
-    cy.get('#userNumber').type('abcde');
+            expect(r.status).to.eq(200)
 
-    // Fill other required fields
-    cy.get('#dateOfBirthInput').click();
-    cy.get('.react-datepicker__month-select').select('May');
-    cy.get('.react-datepicker__year-select').select('2003');
-    cy.get('.react-datepicker__day--015:not(.react-datepicker__day--outside-month)').click();
+            expect(r).to.have.property('headers')
 
-    cy.get('.subjects-auto-complete__value-container').type('Maths{enter}');
-    cy.get('label[for="hobbies-checkbox-1"]').click();
-    cy.get('#uploadPicture').selectFile('cypress/fixtures/sample.pdf');
-    cy.get('#currentAddress').type('123, Coimbatore, Tamil Nadu');
-    cy.get('#state').click().get('#react-select-3-option-0').click();
-    cy.get('#city').click().get('#react-select-4-option-0').click();
+            expect(r).to.have.property('duration')
 
-    // Submit the form
-    cy.get('#submit').click({ force: true });
+        });
 
-    // ✅ Assertions
-    cy.get('#userEmail').should('have.css', 'border-color', 'rgb(220, 53, 69)');
-    cy.get('#userNumber').should('have.css', 'border-color', 'rgb(220, 53, 69)');
+    })
 
-    // Modal should not appear
-    cy.get('.modal-content').should('not.exist');
-  });
-});
+})
