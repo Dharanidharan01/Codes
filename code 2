@@ -1,14 +1,6 @@
-describe('Red Bull Website - Events Navigation Test', () => {
-  it('Should visit Red Bull India and click on Events', () => {
-    // Step 1: Visit the Red Bull India homepage
-    cy.visit('https://www.redbull.com/in-en')
-
-    // Step 2: Click on the "Events" link in the header
-    cy.get('a.header-navigation-links__item[href="/events"]', { timeout: 10000 })
-      .should('be.visible')
-      .click()
-
-    // Step 3: Confirm navigation to the Events page
-    cy.url().should('include', '/events')
-  })
+it('Check Broken Images', () => {
+    cy.visit('https://the-internet.herokuapp.com/broken_images')
+    cy.get('img').each(($img) => {
+        cy.request($img.prop('src')).its('status').should('eq', 200)
+    })
 })
