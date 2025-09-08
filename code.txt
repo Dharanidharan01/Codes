@@ -1,9 +1,52 @@
-describe('DOB Selector - Dropdowns', () => {
-  it('Selects DOB using select()', () => {
-    cy.visit('https://demo.automationtesting.in/Register.html');
- 
-    cy.get('#year').select('1995');  // select year
-    cy.get('#month').select('May');  // select month
-    cy.get('#day').select('15');     // select day
+describe('Vinoth QA Academy Demo Form Automation', () => {
+  beforeEach(() => {
+    // Prevent test failure due to uncaught exceptions
+    Cypress.on('uncaught:exception', () => false);
+    cy.visit('https://vinothqaacademy.com/demo-site/');
+  });
+
+  it('fills and submits the demo registration form', () => {
+    // Fill basic details
+    cy.get('#nf-field-1').type('Dharanidharan'); // First Name
+    cy.get('#nf-field-2').type('S'); // Last Name
+
+    // Select Gender
+    cy.get('#nf-field-3').select('Male');
+
+    // Select Course Interested
+    cy.get('#nf-field-4').select('Selenium WebDriver');
+
+    // Fill Address
+    cy.get('#nf-field-5').type('123, Coimbatore');
+    cy.get('#nf-field-6').type('Suite 101');
+    cy.get('#nf-field-7').type('Coimbatore');
+    cy.get('#nf-field-8').type('Tamil Nadu');
+    cy.get('#nf-field-9').type('641001');
+    cy.get('#nf-field-10').type('India');
+
+    // Email
+    cy.get('#nf-field-11').type('dharanidharan@example.com');
+
+    // Date of Demo
+    cy.get('#nf-field-12').type('09/10/25'); // MM/DD/YY format
+
+    // Convenient Time
+    cy.get('#nf-field-13').select('10'); // Hour
+    cy.get('#nf-field-14').select('30'); // Minute
+
+    // Mobile Number
+    cy.get('#nf-field-15').type('9876543210');
+
+    // Query
+    cy.get('#nf-field-16').type('Looking forward to learning Selenium.');
+
+    // Verification (enter the digits shown on the page)
+    cy.get('.nf-field-element input[type="text"]').last().type('33'); // Example: 33
+
+    // Submit
+    cy.get('input[type="submit"]').click();
+
+    // Assertion (optional)
+    cy.contains('Thank you').should('be.visible');
   });
 });
