@@ -1,18 +1,47 @@
-cy.get('#nf-field-1').type('Dharanidharan'); // First Name
-cy.get('#nf-field-2').type('S'); // Last Name
-cy.get('#nf-field-3').select('Male'); // Gender
-cy.get('#nf-field-4').select('Selenium WebDriver'); // Course
-cy.get('#nf-field-5').type('123, Coimbatore'); // Address Line 1
-cy.get('#nf-field-6').type('Suite 101'); // Address Line 2
-cy.get('#nf-field-7').type('Coimbatore'); // City
-cy.get('#nf-field-8').type('Tamil Nadu'); // State
-cy.get('#nf-field-9').type('641001'); // Zip
-cy.get('#nf-field-10').type('India'); // Country
-cy.get('#nf-field-11').type('dharanidharan@example.com'); // Email
-cy.get('#nf-field-12').type('09/10/25'); // Date
-cy.get('#nf-field-13').select('10'); // Hour
-cy.get('#nf-field-14').select('30'); // Minute
-cy.get('#nf-field-15').type('9876543210'); // Mobile
-cy.get('#nf-field-16').type('Looking forward to learning Selenium.'); // Query
-cy.get('.nf-field-element input[type="text"]').last().type('33'); // Verification
-cy.get('input[type="submit"]').click(); // Submit
+describe('Full form 2', function() {
+    before(() => {
+        cy.log('Full Form Test');
+    });
+
+    beforeEach(() => {
+        cy.visit('https://vinothqaacademy.com/demo-site/');
+    });
+
+    afterEach(() => {
+        cy.log('Test completed');
+    });
+
+    after(() => {
+        cy.log('Full Form Test Finished');
+    });
+
+    Cypress.on('uncaught:exception', (err, runnable) => {
+        return false
+      })
+    it('Form Registeration 2', function() {
+        cy.get('#vfb-5').type('Prajeesh');
+        cy.get('#vfb-7').type('R');
+        cy.get('input[value="Male"]').check({ force: true });
+        cy.get('input[type="checkbox"][value="Selenium WebDriver"]').check({ force: true });
+        cy.get('input[type="checkbox"][value="Java"]').check({ force: true });
+        cy.get('#vfb-13-address').type('pallavan nagar');
+        cy.get('#vfb-13-address-2').type('master publication');
+        cy.get('#vfb-13-city').type('madurai');
+        cy.get('#vfb-13-state').type('Tamil Nadu');
+        cy.get('#vfb-13-zip').type('625016');
+        cy.get('#select2-vfb-13-country-container').click({force : true});
+        // cy.get('#select2-vfb-13-country-results').select('India');
+        cy.get('Input[type="search"]').type('India{enter}');
+        cy.get('#vfb-14').type('prajeesh@gmail.com');
+        cy.get('#vfb-18').click().type('08/09/2025');
+        // cy.get('.ui-datepicker-month').select('July');
+        cy.get('#select2-vfb-16-hour-container').click({force : true});
+        cy.get('Input[type="search"]').type('22{enter}');
+        cy.get('#select2-vfb-16-min-container').click({force : true});
+        cy.get('Input[type="search"]').type('15{enter}');
+        cy.get('#vfb-19').type('9344833599');
+        cy.get('#vfb-23').type('Demo');
+        cy.get('#vfb-3').type('33');
+        cy.get('#vfb-4').click();
+    });
+});
