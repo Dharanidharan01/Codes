@@ -1,6 +1,7 @@
-it('Check Broken Images', () => {
-    cy.visit('https://the-internet.herokuapp.com/broken_images')
-    cy.get('img').each(($img) => {
-        cy.request($img.prop('src')).its('status').should('eq', 200)
+it('Iframe Test', () => {
+    cy.visit('https://the-internet.herokuapp.com/iframe')
+    cy.get('iframe').then($iframe => {
+        const body = $iframe.contents().find('body')
+        cy.wrap(body).find('p').should('contain.text', 'Your content goes here.')
     })
 })
